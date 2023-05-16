@@ -1,12 +1,37 @@
 def test_data
-  @market1 = create(:market)
+  @market1 = Market.create!(id: 1,
+                            name: 'Test Market 1',
+                            street: '123 Test St',
+                            city: 'Test City',
+                            county: 'Test County',
+                            state: 'Test State',
+                            zip: '12345',
+                            lat: '123.456',
+                            lon: '123.456')
 
-  @vendor1 = create(:vendor)
-  @vendor2 = create(:vendor)
-  @vendor3 = create(:vendor)
+  @vendor1 = Vendor.create!(id: 1,
+                            name: 'Test Vendor 1',
+                            description: 'Test Description 1',
+                            contact_name: 'Contact 1',
+                            contact_phone: '123-456-7890',
+                            credit_accepted: true)
   
-  create(:market_vendor, market_id: @market1.id, vendor_id: @vendor1.id)
-  create(:market_vendor, market_id: @market1.id, vendor_id: @vendor2.id)
+  @vendor2 = Vendor.create!(id: 2,
+                            name: 'Test Vendor 2',
+                            description: 'Test Description 2',
+                            contact_name: 'Contact 2',
+                            contact_phone: '123-456-0000',
+                            credit_accepted: false)
+  
+  @vendor3 = Vendor.create!(id: 3,
+                            name: 'Test Vendor 3',
+                            description: 'Test Description 3',
+                            contact_name: 'Contact 3',
+                            contact_phone: '123-456-1111',
+                            credit_accepted: false)
+
+  MarketVendor.create!(market_id: @market1.id, vendor_id: @vendor1.id)
+  MarketVendor.create!(market_id: @market1.id, vendor_id: @vendor2.id)
 end
 
 # This file is copied to spec/ when you run 'rails generate rspec:install'
