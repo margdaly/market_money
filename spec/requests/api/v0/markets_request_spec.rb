@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'Markets API' do
-  it 'sends a list of markets' do
+  it 'sends a list of all the markets' do
     create_list(:market, 3)
 
     get '/api/v0/markets'
@@ -47,8 +47,8 @@ describe 'Markets API' do
     end
   end
 
-  describe 'happy path' do
-    it 'sends a single market by its id' do
+  describe 'sends a single market by its valid id' do
+    scenario 'happy path' do
       id = create(:market).id
 
       get "/api/v0/markets/#{id}"
@@ -95,6 +95,25 @@ describe 'Markets API' do
 
       expect(attributes).to have_key(:vendor_count)
       expect(attributes[:vendor_count]).to be_an(Integer)
+    end
+
+    scenario 'sad path' do
+      invalid_id = 123123123123
+
+      get "/api/v0/markets/#{invalid_id}"
+
+      failure = JSON.parse(response.body, symbolize_names: true)
+
+      expect(response.status).to eq(404)
+      expect(response).to_not be_successful
+
+      expect(failure).to have_key(:errors)
+
+      errors = failure[:errors]
+
+      expect(errors).to be_an(Array)
+      expect(errors[0]).to have_key(:detail)
+      expect(errors[0][:detail]).to eq("Couldn't find Market with 'id'=#{invalid_id}")
     end
   end
 end
