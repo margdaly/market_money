@@ -18,7 +18,7 @@ RSpec.describe Market do
 
         expect(market1.vendor_count).to eq(2)
 
-        create(:market_vendor, market_id: market1.id, vendor_id: vendor2.id)
+        create(:market_vendor, market_id: market1.id, vendor_id: vendor3.id)
 
         expect(market1.vendor_count).to eq(3)
       end
