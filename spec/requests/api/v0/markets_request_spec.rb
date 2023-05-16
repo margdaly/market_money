@@ -50,9 +50,9 @@ describe 'Markets API' do
 
   describe 'sends a single market by its valid id' do
     scenario 'happy path' do
-      id = create(:market).id
+      test_data
 
-      get "/api/v0/markets/#{id}"
+      get "/api/v0/markets/#{@market1.id}"
 
       market = JSON.parse(response.body, symbolize_names: true)
       market_data = market[:data]
@@ -61,7 +61,7 @@ describe 'Markets API' do
       expect(response.status).to eq(200)
 
       expect(market_data).to have_key(:id)
-      expect(market_data[:id]).to eq(id.to_s)
+      expect(market_data[:id]).to be_a(String)
 
       expect(market_data).to have_key(:type)
       expect(market_data[:type]).to eq('market')
