@@ -4,21 +4,20 @@ describe 'Markets API' do
   it 'sends a list of markets' do
     create_list(:market, 3)
 
-    get "/api/v0/markets"
+    get '/api/v0/markets'
 
     expect(response).to be_successful
 
     markets = JSON.parse(response.body, symbolize_names: true)
 
-    expect(markets.count).to eq(3)
+    expect(markets[:data].count).to eq(3)
 
-    markets.each do |market|
+    markets[:data].each do |market|
       expect(market).to have_key(:id)
-      expect(market[:id]).to be_an(Integer)
+      expect(market[:id]).to be_an(String)
 
-      expect(market).to have_key(:name)
-      expect(market[:name]).to be_a(String)
-      
+      market = market[:attributes]
+
       expect(market).to have_key(:name)
       expect(market[:name]).to be_a(String)
 
@@ -43,8 +42,8 @@ describe 'Markets API' do
       expect(market).to have_key(:lon)
       expect(market[:lon]).to be_a(String)
 
-      # expect(market).to have_key(:vendor_count)
-      # expect(market[:vendor_count]).to be_an(Integer)
+      expect(market).to have_key(:vendor_count)
+      expect(market[:vendor_count]).to be_an(Integer)
     end
   end
 end
