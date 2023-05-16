@@ -1,3 +1,14 @@
+def test_data
+  @market1 = create(:market)
+
+  @vendor1 = create(:vendor)
+  @vendor2 = create(:vendor)
+  @vendor3 = create(:vendor)
+  
+  create(:market_vendor, market_id: @market1.id, vendor_id: @vendor1.id)
+  create(:market_vendor, market_id: @market1.id, vendor_id: @vendor2.id)
+end
+
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 require 'simplecov'
 SimpleCov.start do
