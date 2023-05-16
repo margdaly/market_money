@@ -9,33 +9,18 @@ RSpec.describe Market do
   describe 'instance methods' do
     describe '.vendor_count' do
       it 'returns the number of vendors at a market' do
-        market1 = Market.create!(name: 'Cherry Creek Farmers Market',
-                                 street: '123 Colfax Ave',
-                                 city: 'Denver',
-                                 county: 'Denver',
-                                 state: 'CO',
-                                 zip: '80206',
-                                 lat: '39.740986',
-                                 lon: '-104.949972')
-
-        vendor1 = Vendor.create!(name: 'Vendor 1',
-                                 description: 'This is vendor 1',
-                                 contact_name: 'Vendor 1 Contact',
-                                 contact_phone: '123.456.7890',
-                                 credit_accepted: true)
-        vendor2 = Vendor.create!(name: 'Vendor 2',
-                                 description: 'This is vendor 2',
-                                 contact_name: 'Vendor 2 Contact',
-                                 contact_phone: '123.456.7000',
-                                 credit_accepted: true)
-
-        MarketVendor.create!(market_id: market1.id, vendor_id: vendor1.id)
-
-        expect(market1.vendor_count).to eq(1)
-
-        MarketVendor.create!(market_id: market1.id, vendor_id: vendor2.id)
+        market1 = create(:market)
+        vendor1 = create(:vendor)
+        vendor2 = create(:vendor)
+        vendor3 = create(:vendor)
+        create(:market_vendor, market_id: market1.id, vendor_id: vendor1.id)
+        create(:market_vendor, market_id: market1.id, vendor_id: vendor2.id)
 
         expect(market1.vendor_count).to eq(2)
+
+        create(:market_vendor, market_id: market1.id, vendor_id: vendor2.id)
+
+        expect(market1.vendor_count).to eq(3)
       end
     end
   end
