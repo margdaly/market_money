@@ -6,10 +6,14 @@ RSpec.describe Market do
     it { should have_many(:vendors).through(:market_vendors) }
   end
 
+  describe 'validations' do
+    it { should validate_presence_of(:id) }
+  end
+
   describe 'instance methods' do
     describe '.vendor_count' do
       it 'returns the number of vendors at a market' do
-        market1 = create(:market)
+        market1 = create(:market, { id: 1})
         vendor1 = create(:vendor)
         vendor2 = create(:vendor)
         vendor3 = create(:vendor)
