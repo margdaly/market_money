@@ -54,43 +54,47 @@ describe 'Markets API' do
       get "/api/v0/markets/#{id}"
 
       market = JSON.parse(response.body, symbolize_names: true)
+      market_data = market[:data]
 
       expect(response).to be_successful
 
-      expect(market[:data]).to have_key(:id)
-      expect(market[:data][:id]).to eq(id.to_s)
+      expect(market_data).to have_key(:id)
+      expect(market_data[:id]).to eq(id.to_s)
 
-      expect(market[:data]).to have_key(:attributes)
-      expect(market[:data][:attributes]).to be_a(Hash)
+      expect(market_data).to have_key(:type)
+      expect(market_data[:type]).to eq('market')
 
-      market = market[:data][:attributes]
+      expect(market_data).to have_key(:attributes)
+      expect(market_data[:attributes]).to be_a(Hash)
 
-      expect(market).to have_key(:name)
-      expect(market[:name]).to be_a(String)
+      attributes = market[:data][:attributes]
 
-      expect(market).to have_key(:street)
-      expect(market[:street]).to be_a(String)
+      expect(attributes).to have_key(:name)
+      expect(attributes[:name]).to be_a(String)
 
-      expect(market).to have_key(:city)
-      expect(market[:city]).to be_a(String)
+      expect(attributes).to have_key(:street)
+      expect(attributes[:street]).to be_a(String)
 
-      expect(market).to have_key(:county)
-      expect(market[:county]).to be_a(String)
+      expect(attributes).to have_key(:city)
+      expect(attributes[:city]).to be_a(String)
 
-      expect(market).to have_key(:state)
-      expect(market[:state]).to be_a(String)
+      expect(attributes).to have_key(:county)
+      expect(attributes[:county]).to be_a(String)
 
-      expect(market).to have_key(:zip)
-      expect(market[:zip]).to be_a(String)
+      expect(attributes).to have_key(:state)
+      expect(attributes[:state]).to be_a(String)
 
-      expect(market).to have_key(:lat)
-      expect(market[:lat]).to be_a(String)
+      expect(attributes).to have_key(:zip)
+      expect(attributes[:zip]).to be_a(String)
 
-      expect(market).to have_key(:lon)
-      expect(market[:lon]).to be_a(String)
+      expect(attributes).to have_key(:lat)
+      expect(attributes[:lat]).to be_a(String)
 
-      expect(market).to have_key(:vendor_count)
-      expect(market[:vendor_count]).to be_an(Integer)
+      expect(attributes).to have_key(:lon)
+      expect(attributes[:lon]).to be_a(String)
+
+      expect(attributes).to have_key(:vendor_count)
+      expect(attributes[:vendor_count]).to be_an(Integer)
     end
   end
 end
