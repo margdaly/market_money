@@ -42,5 +42,23 @@ describe 'Vendors API' do
       expect(attributes).to have_key(:credit_accepted)
       expect(attributes[:credit_accepted]).to be_in([true, false])
     end
+
+    scenario 'sad path' do
+      invalid_id = 123123123123
+
+      get "/api/v0/vendors/#{invalid_id}"
+
+      failure = JSON.parse(response.body, symbolize_names: true)
+
+      expect(response.status).to eq(404)
+      expect(response).to_not be_successful
+
+      expect(failure).to have_key(:errors)
+
+      errors = failure[:errors]
+
+      expect(errors).to be_an(Array)
+      expect(errors[0]).to have_key(:detail)
+    end
   end
 end
