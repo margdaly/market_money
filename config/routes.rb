@@ -5,11 +5,10 @@ Rails.application.routes.draw do
   # root "articles#index"
   namespace :api do
     namespace :v0 do
-      resources :markets, only: [:index, :show] do
+      resources :vendors, only: %i[show create update]
+      resources :markets, only: %i[index show] do
         resources :vendors, only: [:index]
       end
-
-      resources :vendors, only: [:show, :create]
     end
   end
 end
