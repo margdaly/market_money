@@ -207,7 +207,7 @@ describe 'Vendors API' do
 
       expect(@market1.vendor_count).to eq(2)
       expect(Vendor.count).to eq(3)
-      expect(MarketVendor.count).to eq(2)
+      expect(MarketVendor.count).to eq(3)
 
       delete "/api/v0/vendors/#{@vendor2.id}"
 
@@ -217,7 +217,7 @@ describe 'Vendors API' do
 
       expect(@market1.vendor_count).to eq(1)
       expect(Vendor.count).to eq(2)
-      expect(MarketVendor.count).to eq(1)
+      expect(MarketVendor.count).to eq(2)
     end
 
     scenario 'sad path' do

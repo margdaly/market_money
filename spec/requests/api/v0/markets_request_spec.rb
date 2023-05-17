@@ -132,7 +132,7 @@ describe 'Markets API' do
 
       expect(vendors).to have_key(:data)
       expect(vendors[:data]).to be_an(Array)
-      
+
       vendors[:data].each do |vendor|
 
         expect(vendor).to have_key(:id)

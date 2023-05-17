@@ -9,6 +9,16 @@ def test_data
                             lat: '123.456',
                             lon: '123.456')
 
+  @market2 = Market.create!(id: 2,
+                            name: 'Market 2',
+                            street: '4569 Test Rd',
+                            city: 'Tester City',
+                            county: 'Tester County',
+                            state: 'Hawaii',
+                            zip: '98765',
+                            lat: '987.654',
+                            lon: '987.667')
+
   @vendor1 = Vendor.create!(id: 1,
                             name: 'Test Vendor 1',
                             description: 'Test Description 1',
@@ -30,8 +40,9 @@ def test_data
                             contact_phone: '123-456-1111',
                             credit_accepted: false)
 
-  MarketVendor.create!(market_id: @market1.id, vendor_id: @vendor1.id)
-  MarketVendor.create!(market_id: @market1.id, vendor_id: @vendor2.id)
+  @mv1 = MarketVendor.create!(market_id: @market1.id, vendor_id: @vendor1.id)
+  @mv2 = MarketVendor.create!(market_id: @market1.id, vendor_id: @vendor2.id)
+  @mv3 = MarketVendor.create!(market_id: @market2.id, vendor_id: @vendor3.id)
 end
 
 # This file is copied to spec/ when you run 'rails generate rspec:install'
