@@ -61,4 +61,20 @@ describe 'Vendors API' do
       expect(errors[0]).to have_key(:detail)
     end
   end
+
+  describe 'creates a new vendor' do
+    scenario 'happy path' do
+      vendor_params = ({"name": 'Buzzy Bees',
+                        "description": "local honey and wax products",
+                        "contact_name": "Berlyn Couwer",
+                        "contact_phone": "8389928383",
+                        "credit_accepted": false})
+      headers = {'CONTENT_TYPE' => 'application/json'}
+
+      post '/api/v0/vendors', headers: headers, params: JSON.generate(vendor_params)
+
+      expect(response).to be_successful
+      expect(response.status).to eq(201)
+    end
+  end
 end
