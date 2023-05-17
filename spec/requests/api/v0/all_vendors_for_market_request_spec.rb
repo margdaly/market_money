@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Market Vendors API' do
+RSpec.describe 'Get All Vendors for a Market' do
   describe 'sends a list of all vendors associated with a valid market' do
     scenario 'happy path' do
       test_data
@@ -14,7 +14,7 @@ RSpec.describe 'Market Vendors API' do
 
       expect(vendors).to have_key(:data)
       expect(vendors[:data]).to be_an(Array)
-      
+
       vendors[:data].each do |vendor|
 
         expect(vendor).to have_key(:id)
