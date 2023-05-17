@@ -1,14 +1,14 @@
 class ApplicationController < ActionController::API
-  rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
-  rescue_from ActiveRecord::RecordInvalid, with: :render_invalid_response
+  rescue_from ActiveRecord::RecordNotFound, with: :not_found
+  rescue_from ActiveRecord::RecordInvalid, with: :invalid
 
   private
 
-  def render_not_found_response(error)
+  def not_found(error)
     render json: ErrorSerializer.serialize(error), status: 404
   end
 
-  def render_invalid_response(error)
+  def invalid(error)
     render json: ErrorSerializer.serialize(error), status: 400
   end
 end

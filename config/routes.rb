@@ -9,7 +9,7 @@ Rails.application.routes.draw do
         resources :vendors, only: [:index], controller: 'markets/vendors'
       end
 
-      resources :vendors, only: %i[show create update]
+      resources :vendors, only: %i[show create update destroy]
     end
   end
 end

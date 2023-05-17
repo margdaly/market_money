@@ -151,13 +151,14 @@ describe 'Vendors API' do
     end
 
     scenario 'sad path for invalid vendor id' do
+      invalid_id = 123123123123
       vendor_params = ({
                         "contact_name": "Kimberly Couwer",
                         "credit_accepted": false
                       }) 
       headers = {'CONTENT_TYPE' => 'application/json'}
 
-      patch "/api/v0/vendors/123123123", headers: headers, params: JSON.generate(vendor_params)
+      patch "/api/v0/vendors/#{invalid_id}", headers: headers, params: JSON.generate(vendor_params)
 
       expect(response).to_not be_successful
       expect(response.status).to eq(404)
@@ -170,7 +171,7 @@ describe 'Vendors API' do
       error_info = invalid[:errors][0]
 
       expect(error_info).to have_key(:detail)
-      expect(error_info[:detail]).to eq("Couldn't find Vendor with 'id'=123123123")
+      expect(error_info[:detail]).to eq("Couldn't find Vendor with 'id'=123123123123")
     end
 
     scenario 'sad path for blank field' do
@@ -197,6 +198,26 @@ describe 'Vendors API' do
 
       expect(error_info).to have_key(:detail)
       expect(error_info[:detail]).to eq("Validation failed: Name can't be blank, Contact name can't be blank")
+    end
+  end
+
+  describe 'deletes an existing vendor' do
+    scenario 'happy path' do
+      test_data
+
+      expect(@market1.vendor_count).to eq(2)
+      expect(Vendor.count).to eq(3)
+      expect(MarketVendor.count).to eq(2)
+
+      delete "/api/v0/vendors/#{@vendor2.id}"
+
+      expect(response).to be_successful
+      expect(response.status).to eq(204)
+      expect(response.body).to eq('')
+
+      expect(@market1.vendor_count).to eq(1)
+      expect(Vendor.count).to eq(2)
+      expect(MarketVendor.count).to eq(1)
     end
   end
 end
