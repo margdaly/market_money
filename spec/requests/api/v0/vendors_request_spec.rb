@@ -149,5 +149,54 @@ describe 'Vendors API' do
       expect(updated_attr).to have_key(:credit_accepted)
       expect(updated_attr[:credit_accepted]).to eq(false)
     end
+
+    scenario 'sad path for invalid vendor id' do
+      vendor_params = ({
+                        "contact_name": "Kimberly Couwer",
+                        "credit_accepted": false
+                      }) 
+      headers = {'CONTENT_TYPE' => 'application/json'}
+
+      patch "/api/v0/vendors/123123123", headers: headers, params: JSON.generate(vendor_params)
+
+      expect(response).to_not be_successful
+      expect(response.status).to eq(404)
+
+      invalid = JSON.parse(response.body, symbolize_names: true)
+
+      expect(invalid).to have_key(:errors)
+      expect(invalid[:errors]).to be_an(Array)
+
+      error_info = invalid[:errors][0]
+
+      expect(error_info).to have_key(:detail)
+      expect(error_info[:detail]).to eq("Couldn't find Vendor with 'id'=123123123")
+    end
+
+    scenario 'sad path for blank field' do
+      test_data 
+
+      vendor_params = ({
+                        "name": "",
+                        "contact_name": "",
+                        "credit_accepted": false
+                      }) 
+      headers = { 'CONTENT_TYPE' => 'application/json' }
+
+      patch "/api/v0/vendors/#{@vendor2.id}", headers: headers, params: JSON.generate(vendor_params)
+
+      expect(response).to_not be_successful
+      expect(response.status).to eq(400)
+
+      blank_field = JSON.parse(response.body, symbolize_names: true)
+
+      expect(blank_field).to have_key(:errors)
+      expect(blank_field[:errors]).to be_an(Array)
+
+      error_info = blank_field[:errors][0]
+
+      expect(error_info).to have_key(:detail)
+      expect(error_info[:detail]).to eq("Validation failed: Name can't be blank, Contact name can't be blank")
+    end
   end
 end
