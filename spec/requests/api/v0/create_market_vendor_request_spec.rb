@@ -7,10 +7,7 @@ RSpec.describe 'Create a Market Vendor' do
     scenario 'happy path' do
       expect(@market1.vendor_count).to eq(2)
 
-      market_vendor_params = {
-                              'market_id': @market1.id,
-                              'vendor_id': @vendor3.id
-                            }
+      market_vendor_params = { 'market_id': @market1.id, 'vendor_id': @vendor3.id }
 
       headers = { 'CONTENT_TYPE' => 'application/json' }
 
@@ -29,10 +26,7 @@ RSpec.describe 'Create a Market Vendor' do
     describe 'sad path, custom error messages' do
       scenario 'invalid market id' do
         invalid_market_id = 987654321
-        market_vendor_params = {
-                                  'market_id': invalid_market_id,
-                                  'vendor_id': @vendor2.id
-                              }
+        market_vendor_params = { 'market_id': invalid_market_id, 'vendor_id': @vendor2.id }
 
         headers = { 'CONTENT_TYPE' => 'application/json' }
 
@@ -54,10 +48,7 @@ RSpec.describe 'Create a Market Vendor' do
 
       scenario 'invalid vendor id' do
         invalid_vendor_id = 987654321
-        market_vendor_params = {
-                                  'market_id': @market1.id,
-                                  'vendor_id': invalid_vendor_id
-                                }
+        market_vendor_params = { 'market_id': @market1.id, 'vendor_id': invalid_vendor_id }
 
         headers = { 'CONTENT_TYPE' => 'application/json' }
 
@@ -80,10 +71,7 @@ RSpec.describe 'Create a Market Vendor' do
       scenario 'missing both vendor and market ids' do
         invalid_vendor_id = 987654321
         invalid_market_id = 432198765
-        market_vendor_params = {
-                                  'market_id': invalid_market_id,
-                                  'vendor_id': invalid_vendor_id
-                                }
+        market_vendor_params = { 'market_id': invalid_market_id, 'vendor_id': invalid_vendor_id }
 
         headers = { 'CONTENT_TYPE' => 'application/json' }
 
@@ -106,10 +94,7 @@ RSpec.describe 'Create a Market Vendor' do
       scenario 'market and vendor association already exists' do
         vendor_id = @mv1.vendor_id
         market_id = @mv1.market_id
-        market_vendor_params = {
-                                  'market_id': market_id,
-                                  'vendor_id': vendor_id
-                                }
+        market_vendor_params = { 'market_id': market_id, 'vendor_id': vendor_id }
 
         headers = { 'CONTENT_TYPE' => 'application/json' }
 

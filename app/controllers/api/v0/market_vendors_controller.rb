@@ -9,6 +9,14 @@ class Api::V0::MarketVendorsController < ApplicationController
     end
   end
 
+  def destroy
+    begin
+      MarketVendor.find_by!(market_vendor_params).destroy
+    rescue ActiveRecord::RecordNotFound
+      render_no_market_vendor_response(market_vendor_params)
+    end
+  end
+
   private
 
   def market_vendor_params
