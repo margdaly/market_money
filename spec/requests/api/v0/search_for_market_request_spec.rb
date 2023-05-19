@@ -8,6 +8,8 @@ RSpec.describe 'Search for a market' do
   describe 'returns markets searched for by state, city and/or name' do
     describe 'happy path' do
       scenario 'search by state' do
+        VCR.use_cassette('market_search_by_state') do
+
         headers = { 'CONTENT_TYPE' => 'application/json' }
 
         get '/api/v0/markets/search?state=co', headers: headers
@@ -53,6 +55,7 @@ RSpec.describe 'Search for a market' do
 
           expect(attributes).to have_key(:lon)
           expect(attributes[:lon]).to be_a(String)
+          end
         end
       end
 

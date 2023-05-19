@@ -100,6 +100,7 @@ RSpec.configure do |config|
   # examples within a transaction, remove the following line or assign false
   # instead of true.
   config.use_transactional_fixtures = true
+  config.include Capybara::DSL
 
   # You can uncomment this line to turn off ActiveRecord support entirely.
   # config.use_active_record = false
@@ -135,7 +136,6 @@ end
 VCR.configure do |config|
   config.cassette_library_dir = 'spec/fixtures/vcr_cassettes'
   config.hook_into :webmock
-  config.filter_sensitive_data('api_key') { ENV['api_key'] }
-  config.default_cassette_options = { re_record_interval: 7.days }
+  config.filter_sensitive_data('<tomtom_api_key>') { ENV['TomTom_API_KEY'] }
   config.configure_rspec_metadata!
 end

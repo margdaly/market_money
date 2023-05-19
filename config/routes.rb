@@ -8,7 +8,7 @@ Rails.application.routes.draw do
       resources :markets, only: %i[index show search] do
         resources :vendors, only: [:index], controller: 'markets/vendors'
         get 'search', to: 'markets#search'
-        get 'nearest_atms', to: 'atms#index'
+        get 'nearest_atms', to: 'market/atms#index'
       end
 
       resources :vendors, only: %i[show create update destroy]

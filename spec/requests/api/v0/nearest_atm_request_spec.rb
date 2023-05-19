@@ -9,7 +9,6 @@ RSpec.describe 'ATM Search' do
         get "/api/v0/markets/#{market1.id}/nearest_atms"
 
         nearest_atms = JSON.parse(response.body, symbolize_names: true)
-        require 'pry'; binding.pry
 
         expect(response).to be_successful
         expect(response.status).to eq(200)

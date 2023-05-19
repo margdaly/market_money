@@ -3,22 +3,20 @@ require 'rails_helper'
 RSpec.describe 'ATM' do
   describe 'initialize' do
     it 'exists and has attributes' do
-      attributes = {
-        name: 'ATM',
-        address: '123 Main St',
-        lat: '39.750783',
-        lon: '-104.996439',
-        distance: '0.10521432030421865'
+      data = {
+        poi: { name: 'ATM' },
+        address: { freeformAddress: '3902 Central Avenue Southeast, Albuquerque, NM 87108' },
+        position: { "lat": 35.07904, "lon": -106.60068 },
+        dist: 169.766658
       }
-
-      atm = Atm.new(attributes)
+      atm = Atm.new(data)
 
       expect(atm).to be_a(Atm)
       expect(atm.name).to eq('ATM')
-      expect(atm.address).to eq('123 Main St')
-      expect(atm.lat).to eq('39.750783')
-      expect(atm.lon).to eq('-104.996439')
-      expect(atm.distance).to eq('0.10521432030421865')
+      expect(atm.address).to eq('3902 Central Avenue Southeast, Albuquerque, NM 87108')
+      expect(atm.lat).to eq(35.07904)
+      expect(atm.lon).to eq(-106.60068)
+      expect(atm.distance).to eq(0.10548811068360774)
     end
   end
 end
