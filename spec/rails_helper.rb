@@ -45,6 +45,15 @@ def test_data
   @mv3 = MarketVendor.create!(market_id: @market2.id, vendor_id: @vendor3.id)
 end
 
+def market_search_data
+  @market1 = create(:market, name: "City Park Farmer's Market", city: 'Aurora', state: 'CO')
+  @market2 = create(:market, name: "Pearl St Farmer's Market", city: 'Denver', state: 'CO')
+  @market3 = create(:market, name: "Cherry Creek Farmer's Market", city: 'Denver', state: 'CO')
+  @market4 = create(:market, name: "Cohasset Farmer's Market", city: "Cohasset", state: "MA")
+  @market5 = create(:market, name: "Copley Square Farmer's Market", city: "Boston", state: "MA")
+  @market6 = create(:market, name: "Pheonix Park Farmer's Market", city: "Pheonix", state: "AZ")
+end
+
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 require 'simplecov'
 SimpleCov.start do
