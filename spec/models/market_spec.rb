@@ -49,5 +49,32 @@ RSpec.describe Market do
         expect(farm_markets).to eq([@market1, @market2, @market3, @market4, @market5, @market6])
       end
     end
+
+    describe 'filter_all' do
+      it 'returns all markets that have a name matches filter' do
+        params = { 'name': 'farmer' } 
+        expect(Market.filter_all(params)).to eq([@market1, @market2, @market3, @market4, @market5, @market6])
+      end
+
+      it 'returns all markets that have a city that matches filter' do
+        params = { 'city': 'denv' }
+        expect(Market.filter_all(params)).to eq([@market2, @market3])
+      end
+
+      it 'returns all markets that have a u.s. state that matches filter' do
+        params = { 'state': 'co' }
+        expect(Market.filter_all(params)).to eq([@market1, @market2, @market3])
+      end
+
+      it 'returns all markets that match two filters' do
+        params = { 'name': 'farmer', 'state': 'az' }
+        expect(Market.filter_all(params)).to eq([@market6])
+      end
+
+      it 'returns all markets that match three filters' do
+        params = { 'name': 'farmer', 'state': 'co', 'city': 'aurora' }
+        expect(Market.filter_all(params)).to eq([@market1])
+      end
+    end
   end
 end

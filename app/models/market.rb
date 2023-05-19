@@ -9,4 +9,12 @@ class Market < ApplicationRecord
   def vendor_count
     vendors.count
   end
+
+  def self.filter_all(params)
+    results =  all
+    params.each do |key, value|
+      results = results.public_send("filter_by_#{key}", value) if value.present?
+    end
+    results
+  end
 end
