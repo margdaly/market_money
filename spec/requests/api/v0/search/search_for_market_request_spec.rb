@@ -106,5 +106,25 @@ RSpec.describe 'Search for a market' do
         end
       end
     end
+
+    describe 'sad path' do
+      scenario 'invalid search params' do
+        headers = { 'CONTENT_TYPE' => 'application/json' }
+
+        get '/api/v0/markets/search?city=melborne', headers: headers
+
+        expect(response).to_not be_successful
+        expect(response.status).to eq(422)
+
+        error = JSON.parse(response.body, symbolize_names: true)
+
+        expect(error).to have_key(:errors)
+        expect(error[:errors]).to be_an(Array)
+        error_info = error[:errors][0]
+
+        expect(error_info).to have_key(:detail)
+        expect(error_info[:detail]).to eq("Invalid set of parameters. Please provide a valid set of parameters to perform a search with this endpoint.")
+      end
+    end
   end
 end
