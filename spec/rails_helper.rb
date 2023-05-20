@@ -42,7 +42,9 @@ def test_data
 
   @mv1 = MarketVendor.create!(market_id: @market1.id, vendor_id: @vendor1.id)
   @mv2 = MarketVendor.create!(market_id: @market1.id, vendor_id: @vendor2.id)
+
   @mv3 = MarketVendor.create!(market_id: @market2.id, vendor_id: @vendor3.id)
+  @mv3 = MarketVendor.create!(market_id: @market2.id, vendor_id: @vendor2.id)
 end
 
 def market_search_data

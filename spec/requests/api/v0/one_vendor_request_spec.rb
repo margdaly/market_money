@@ -41,6 +41,9 @@ RSpec.describe 'Get One Vendor' do
 
       expect(attributes).to have_key(:credit_accepted)
       expect(attributes[:credit_accepted]).to be_in([true, false])
+
+      expect(attributes).to have_key(:states_sold_in)
+      expect(attributes[:states_sold_in]).to be_an(Array)
     end
 
     scenario 'sad path' do
